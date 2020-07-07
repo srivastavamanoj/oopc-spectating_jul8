@@ -675,7 +675,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N11
+      value: Semedo
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N9
+      value: Casemiro
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 239124161}
   - component: {fileID: 239124162}
   m_Layer: 0
-  m_Name: TeamCPU2
+  m_Name: Real Madrid CF
   m_TagString: OponentTeam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,7 +1427,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N2
+      value: Lenglet
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -1595,7 +1595,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N11
+      value: Mendy
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -1937,7 +1937,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N8
+      value: Benzema
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -2100,7 +2100,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N9
+      value: Vidal
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -2420,7 +2420,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100062, guid: c50cc9d4bd5e9f645bf80c7251eccab4, type: 3}
       propertyPath: m_Name
-      value: GK_T1_N1
+      value: ter Stegen
       objectReference: {fileID: 0}
     - target: {fileID: 400062, guid: c50cc9d4bd5e9f645bf80c7251eccab4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2589,7 +2589,7 @@ GameObject:
   - component: {fileID: 875349903}
   - component: {fileID: 875349904}
   m_Layer: 0
-  m_Name: TeamCPU
+  m_Name: FC Barcelona
   m_TagString: PlayerTeam1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2652,7 +2652,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N5
+      value: Umtiti
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -2885,7 +2885,7 @@ MonoBehaviour:
   minutes: 0
   seconds: 0
   timeMatch: 0
-  TRANSFORM_TIME: 30
+  TRANSFORM_TIME: 15
 --- !u!1 &918914504
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,7 +2931,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N4
+      value: Griezmann
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -3182,7 +3182,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N7
+      value: Fati
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -3375,7 +3375,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N4
+      value: Ramos
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -3538,7 +3538,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N10
+      value: Kroos
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -3696,7 +3696,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N6
+      value: De Jong
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -3829,7 +3829,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N3
+      value: Rodrygo
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -4791,7 +4791,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N10
+      value: Messi
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -5097,7 +5097,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N8
+      value: Sergio Busquets
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -5230,7 +5230,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N5
+      value: Valverde
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -5456,7 +5456,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100062, guid: c50cc9d4bd5e9f645bf80c7251eccab4, type: 3}
       propertyPath: m_Name
-      value: GK_T2_N1
+      value: Courtois
       objectReference: {fileID: 0}
     - target: {fileID: 100062, guid: c50cc9d4bd5e9f645bf80c7251eccab4, type: 3}
       propertyPath: m_TagString
@@ -5725,7 +5725,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N2
+      value: Carvajal
       objectReference: {fileID: 0}
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -6247,7 +6247,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N7
+      value: Hazard
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -6488,7 +6488,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T2_N6
+      value: Varane
       objectReference: {fileID: 0}
     - target: {fileID: 4059059988055885871, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
@@ -6651,7 +6651,7 @@ PrefabInstance:
     - target: {fileID: 691756612292266918, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}
       propertyPath: m_Name
-      value: P_T1_N3
+      value: Jordi Alba
       objectReference: {fileID: 0}
     - target: {fileID: 1398609757877584042, guid: 7fe292860840e4c438210375191ef0af,
         type: 3}

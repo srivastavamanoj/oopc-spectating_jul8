@@ -30,7 +30,7 @@ public class TestSpectatingAPI : MonoBehaviour
             TestAccessGameData();
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            TestGetPlayerState("GK_T1_N1");        
+            TestGetPlayerState("Messi");        
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             TestGetPlayerInfo();
