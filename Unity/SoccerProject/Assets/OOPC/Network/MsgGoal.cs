@@ -5,12 +5,22 @@ using UnityEngine;
 
 
 [Serializable]
-public class MsgPython
+public class MsgGoal
 {
     public string eventType;
     public int minute;
     public int second;
     public string playerName;
-    public int localTeamScore;
+    public string teamName;
+    public int localTeamScore;    
     public int visitingTeamScore;
+    public string localTeamName;
+    public string visitingTeamName;
+}
+
+
+[Serializable]
+public class MsgShoot
+{
+
 }
