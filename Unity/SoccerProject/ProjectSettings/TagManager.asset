@@ -10,6 +10,7 @@ TagManager:
   - PlayerSelected
   - GoalKeeper_Jump_Left
   - GoalKeeper_Jump_Right
+  - SpectatingCamera
   layers:
   - Default
   - TransparentFX
