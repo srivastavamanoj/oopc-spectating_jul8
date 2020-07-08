@@ -4,6 +4,8 @@ using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Collections.Generic;
+
 #if UNITY_PS4 && !UNITY_EDITOR
 using UnityEngine.PS4;
 #endif
@@ -31,6 +33,10 @@ public class UDPReceive : MonoBehaviour
     private bool UDPreceivingStarted = false;
     private string localIP;
     private string teamName;
+    private List<string> listMsgs;
+    private int xScreenPos = 10;
+    private int boxWidht = 300;
+    private int boxHeight = 200;
 
 
     void Awake()
@@ -49,6 +55,8 @@ public class UDPReceive : MonoBehaviour
     private void Start()
     {
         teamName = team.name;
+
+        listMsgs = new List<string>();
     }
 
 
@@ -68,7 +76,7 @@ public class UDPReceive : MonoBehaviour
         if (string.IsNullOrEmpty(udpString))
         {
             isNewMsgToDisplay = true;
-            udpString = "Local IP:" + localIP + "     Waiting UDP msgs on port: " + port;
+            udpString = "Local IP:" + localIP + "     Waiting on port: " + port;
         }
     }
 
@@ -89,35 +97,53 @@ public class UDPReceive : MonoBehaviour
         Byte[] receiveBytes = receivingUdpClient.EndReceive(res, ref remoteEndPoint);
         // get udp message
         string message = Encoding.ASCII.GetString(receiveBytes);        
-        udpStringAsync = message;
-        udpString = udpStringAsync;
+        udpStringAsync = message;        
+        ProcessMsg(udpStringAsync);
         isNewMsgToDisplay = true;
         isNewMsgToProcess = true;
         // get next packet 
         receivingUdpClient.BeginReceive(ReceiveUdpData, null);
-    }    
+    }
 
 
+    private void ProcessMsg(string amsg)
+    {
+        if (listMsgs.Count >= 10)
+        {
+            listMsgs.RemoveAt(0);
+        }
+
+        listMsgs.Add(amsg);
+
+        string temp = "";
+        foreach (string str in listMsgs)
+        {
+            temp = temp + str + '\n';
+        }
+        udpString = temp;
+    }
+
+    
     void displayHUD()
     {
-        int c = 10;
         if (!leftHUD)
         {
             if (Screen.width > 800)
-                c = Screen.width - 410;
+                xScreenPos = Screen.width - (boxWidht + 10);
             else
-                c = 500;
+                xScreenPos = 500;
         }
 
-        GUI.BeginGroup(new Rect(c, 10, 400, 300));
-            GUI.Box(new Rect(0, 0, 400, 300), "Spectators comments for: " + teamName);
+        GUI.BeginGroup(new Rect(xScreenPos, 10, boxWidht, boxHeight));
+            GUI.Box(new Rect(0, 0, boxWidht, boxHeight), "Spectators comments for: " + teamName);
             if (UDPreceivingStarted)
             {
-                GUI.Label(new Rect(20, 25, 400, 25), "UDP string:  " + udpString);            
+                //GUI.Label(new Rect(20, 25, 400, 25), "UDP string:  " + udpString);
+                GUI.Label(new Rect(20, 25, boxWidht, boxHeight), "UDP string:  " + udpString);
             }
             else
             {
-                GUI.Label(new Rect(20, 25, 400, 25), udpString);
+                GUI.Label(new Rect(20, 25, boxWidht, boxHeight), udpString);
             }
         GUI.EndGroup();
     }    
