@@ -7,6 +7,9 @@ import unity_comm as unity
 import video_uploader_comm as uploader
 
 
+count1 = 0;
+count2 = 0;
+
 def listen_unity_msgs():
     while True:
         unity.listen_udp_msgs()
@@ -18,6 +21,8 @@ def listen_youtube_uploader():
 
 
 def on_press(key):
+    global count1
+    global count2
     if key == keyboard.Key.esc:
         return False  # stop listener
     try:
@@ -32,10 +37,14 @@ def on_press(key):
         # Test sending msgs to Unity
         txt_team1 = 'Go Barza !!!'
         txt_team2 = 'Go Real Madrid !!!'
+        txt2_team1 = 'Visca Barca !!!'
+        txt2_team2 = 'Hala Madrid !!!'
         if k == '1':
-            unity.send_msg_team1(txt_team1)
+            count1 +=1
+            unity.send_msg_team1(txt_team1 + ' ' + str(count1))
         elif k == '2':
-            unity.send_msg_team2(txt_team2)
+            count2 +=1
+            unity.send_msg_team2(txt_team2 + ' ' + str(count2))
 
         # Test notifying that the video has been uploaded to YouTube
         elif k == '3':
