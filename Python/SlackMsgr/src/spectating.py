@@ -1,31 +1,53 @@
 import socket
 import slack_bot
 import json
-
-# Create UDP Socket to receive. Accept all connections
-UDP_IP_RECEIVE = ''
-UDP_PORT_RECEIVE = 9089
-sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)     # Internet, UDP
-sock_receive.bind((UDP_IP_RECEIVE, UDP_PORT_RECEIVE))
-
-# Create UDP Socket to send
-UDP_IP_SEND = "127.0.0.1"
-UDP_PORT_SEND = 9088
-sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)        # Internet, UDP
+import threading
+from pynput import keyboard
+import unity_comm as unity
 
 
-def listen_Unity():
+def listen_unity_msgs():
     while True:
-        # Suspend until data is received
-        print('Waiting for an udp message ------------------------------------------------')
-        data, addr = sock_receive.recvfrom(1024)
-        strReceived = data.decode()
-        print('Received UDP message: ', strReceived, ' - Address: ', addr)
-        msg_json = json.loads(strReceived)
+        unity.listen_udp_msgs()
 
-        if msg_json['eventType'] == 'goal':
-            slack_bot.send_message(strReceived)
+
+def listen_youtube_uploader():
+    pass
+
+
+def on_press(key):
+    if key == keyboard.Key.esc:
+        return False  # stop listener
+    try:
+        k = key.char  # single-char keys
+    except:
+        k = key.name  # other keys
+
+    print('Key pressed: ' + k)
+    txt_team1 = 'Go Barza !!!'
+    txt_team2 = 'Go Real Madrid !!!'
+    if k == '1':
+        unity.send_msg_team1(txt_team1)
+    elif k == '2':
+        unity.send_msg_team2(txt_team2)
+
+
+def main():
+    t_unity = threading.Thread(target=listen_unity_msgs, daemon=True)
+    t_unity.start()
+
+    t_youtube = threading.Thread(target=listen_youtube_uploader, daemon=True)
+    t_youtube.start()
+
+    key_listener = keyboard.Listener(on_press=on_press)
+    key_listener.start()
+
+    while True:
+        pass
+
+    print ('Program finished...')
+
 
 
 if __name__ == '__main__':
-    listen_Unity()
+    main()

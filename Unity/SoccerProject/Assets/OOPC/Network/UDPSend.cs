@@ -33,7 +33,7 @@ public class UDPSend : MonoBehaviour
             ReadIPfromFile();
         }
 
-        Debug.Log("UDP Send IP address: " + IPofReceiver);
+        //Debug.Log("UDP Send IP address: " + IPofReceiver);
     }
 
 

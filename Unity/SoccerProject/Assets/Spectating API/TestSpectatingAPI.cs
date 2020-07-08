@@ -132,19 +132,19 @@ public class TestSpectatingAPI : MonoBehaviour
 
     private void TestOnFirstHalfStarted()
     {
-        Debug.Log("Event: first half started... 111");
+        //Debug.Log("Event: first half started... 111");
     }
 
 
     private void TestOnSecondHalfStarted()
     {
-        Debug.Log("Event: second half started... 222");
+        //Debug.Log("Event: second half started... 222");
     }
 
 
     private void TestOnMatchFinished()
     {
-        Debug.Log("Event: match has finished... 333");
+        //Debug.Log("Event: match has finished... 333");
     }
 
 
@@ -168,7 +168,7 @@ public class TestSpectatingAPI : MonoBehaviour
 
     private void TestOnShoot()
     {
-        //Debug.Log("Event: a shoot was made... 777");
+        Debug.Log("Event: a shoot was made... 777");
     }
     #endregion
 

@@ -6,27 +6,27 @@ from slack.errors import SlackApiError
 client = WebClient(token=os.environ['SLACK_API_TOKEN'])
 
 
-def send_message(channel, txt):
+def send_message(a_channel, txt):
+    """Send a message to a channel or to a user.
+    channel example: '#test-slack-api'
+    user example: U016TKCD944
+    """
     try:
         response = client.chat_postMessage(
-            channel=channel,
+            channel=a_channel,
             text=txt)
 
     except SlackApiError as e:
-        assert e.response["ok"] is False
-        assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
         print(f"Got an error: {e.response['error']}")
 
 
-def send_file(channel, file_path):
+def send_file(a_channel, file_path):
     try:
         response = client.files_upload(
-            channels=channel,
+            channels=a_channel,
             file=file_path)
 
     except SlackApiError as e:
-        assert e.response["ok"] is False
-        assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
         print(f"Got an error: {e.response['error']}")
 
 
@@ -57,33 +57,42 @@ def list_public_channels():
     return list_channels
 
 
-
-def join_channel(channel):
+def join_channel(a_channel):
     try:
-        response = client.conversations_join(channel=channel)
+        response = client.conversations_join(channel=a_channel)
 
     except SlackApiError as e:
         print(f"Got an error: {e.response['error']}")
 
 
-def leave_channel(channel):
+def leave_channel(a_channel):
     try:
-        response = client.conversations_leave(channel=channel)
+        response = client.conversations_leave(channel=a_channel)
 
     except SlackApiError as e:
         print(f"Got an error: {e.response['error']}")
 
 
-if __name__ == '__main__':
+def main():
+    # Test sending a msg
     channel = '#test-slack-api'
-    #channel = 'U016TKCD944'
-    msg = 'Here is a link: https://www.youtube.com/watch?v=MNWC4NMWfe8'
-    send_message(channel, msg)
+    # channel = 'U016TKCD944'
+    # msg = 'Here is a link: https://www.youtube.com/watch?v=R_ZxREUJQeQ'
+    # send_message(channel, msg)
 
-    # filepath = '../data/goal.jpg'
-    # send_file(channel, filepath)
+    # Test sending a file
+    # file_path = '../data/goal.jpg'
+    # file_path = '../data/Cristiano.gif'
+    # send_file(channel, file_path)
 
+    # Tests getting list of members
     # list_members, ids = list_team_members()
     # for member, id in zip(list_members, ids):
     #     print('{}  {}'.format(member['name'], member['id']))
+
+    print ('Program finished...')
+
+
+if __name__ == '__main__':
+    main()
 

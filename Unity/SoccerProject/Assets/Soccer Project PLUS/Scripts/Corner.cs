@@ -30,8 +30,7 @@ public class Corner : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (inGame.state != InGame.InGameState.GOAL)
-        {
-            
+        {            
             // Detect if Players are outside of field
             if (!other.gameObject.CompareTag("Ball") && inGame.state == InGame.InGameState.PLAYING)
             {
@@ -67,6 +66,7 @@ public class Corner : MonoBehaviour
                 inGame.state = InGame.InGameState.CORNER;
 
                 // Notify subscribers of corner event
+                // Need to start a coroutine and wait a bit to see if the InGameState is Corner
                 cornerEvent?.Invoke();
             }
         }
