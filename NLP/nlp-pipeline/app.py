@@ -1,5 +1,6 @@
 import json
 import os
+import socket
 import threading
 
 from flask import Flask, request, Response
@@ -15,8 +16,18 @@ app = Flask(__name__)
 client = WebClient(token=SLACK_API_TOKEN)
 state = State(TEAM_1, TEAM_2)
 
+# Create UDP Socket to send
+UDP_IP_SEND = "127.0.0.1"
+UDP_PORT_SEND_T1 = 9091  # Local team: Barza
+UDP_PORT_SEND_T2 = 9092  # Visiting team: Real Madrid
+sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # Internet, UDP
 
-def send_message(message):
+
+def send_unity(ip, port, txt):
+    sock_send.sendto(bytes(txt, "utf-8"), (ip, port))
+
+
+def send_slack(message):
     try:
         response = client.chat_postMessage(channel='#test-nlp', text=message)
         print('Outgoing data: ', response)
@@ -40,10 +51,10 @@ def loop():
     summary_1, summary_2 = state.get_summary(TEAM_1), state.get_summary(TEAM_2)
     sentiment_1, sentiment_2 = state.get_sentiment(TEAM_1), state.get_sentiment(TEAM_2)
     if summary_1:
-        send_message(TEAM_1 + '(' + str(sentiment_1) + ')' + ' : ' + summary_1)
+        send_slack(TEAM_1 + '(' + str(sentiment_1) + ')' + ' : ' + summary_1)
 
     if summary_2:
-        send_message(TEAM_2 + '(' + str(sentiment_2) + ')' + ' : ' + summary_2)
+        send_slack(TEAM_2 + '(' + str(sentiment_2) + ')' + ' : ' + summary_2)
 
     threading.Timer(60, loop).start()
 
@@ -60,8 +71,10 @@ def slack_incoming():
         content = data['event']['text']
         if TEAM_1 in content:
             state.add_message(TEAM_1, content)
+            send_unity(UDP_IP_SEND, UDP_PORT_SEND_T1, content)
         elif TEAM_2 in content:
             state.add_message(TEAM_2, content)
+            send_unity(UDP_IP_SEND, UDP_PORT_SEND_T2, content)
 
     return Response(), 200
 
