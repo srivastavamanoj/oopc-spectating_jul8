@@ -74,15 +74,18 @@ def leave_channel(a_channel):
 
 
 def main():
-    # Tests
+    # Test sending a msg
     channel = '#test-slack-api'
     # channel = 'U016TKCD944'
-    msg = 'Here is a link: https://www.youtube.com/watch?v=R_ZxREUJQeQ'
-    send_message(channel, msg)
+    # msg = 'Here is a link: https://www.youtube.com/watch?v=R_ZxREUJQeQ'
+    # send_message(channel, msg)
 
+    # Test sending a file
     # file_path = '../data/goal.jpg'
+    # file_path = '../data/Cristiano.gif'
     # send_file(channel, file_path)
 
+    # Tests getting list of members
     # list_members, ids = list_team_members()
     # for member, id in zip(list_members, ids):
     #     print('{}  {}'.format(member['name'], member['id']))

@@ -1,53 +1,52 @@
 import socket
 import slack_bot
 import json
-
-# Create UDP Socket to receive. Accept all connections
-UDP_IP_RECEIVE = ''
-UDP_PORT_RECEIVE = 9089
-sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)     # Internet, UDP
-sock_receive.bind((UDP_IP_RECEIVE, UDP_PORT_RECEIVE))
-
-# Create UDP Socket to send
-UDP_IP_SEND = "127.0.0.1"
-UDP_PORT_SEND = 9088
-sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)        # Internet, UDP
+import threading
+from pynput import keyboard
+import unity_comm as unity
 
 
-def listen_unity():
+def listen_unity_msgs():
     while True:
-        # Suspend until data is received
-        print('Waiting for an udp message -----------')
-        data, addr = sock_receive.recvfrom(1024)
-        msg_str = data.decode()
-        print('Received UDP message: ', msg_str, ' - Address: ', addr)
-        msg_dic = json.loads(msg_str)
-
-        if msg_dic['eventType'] == 'goal':
-            OnGoal(msg_dic)
+        unity.listen_udp_msgs()
 
 
-def OnGoal(msg_dic):
-    min = msg_dic['minute']
-    sec = msg_dic['second']
-    p_name = msg_dic['playerName']
-    t_name = msg_dic['teamName']
-    local_score = msg_dic['localTeamScore']
-    visiting_score = msg_dic['visitingTeamScore']
-    l_team_name = msg_dic['localTeamName']
-    v_team_name = msg_dic['visitingTeamName']
+def listen_youtube_uploader():
+    pass
 
-    msg = 'Wow!!! {} just scored a goal for {} at minute {}:{}. ' \
-          'The current score is ' '{} {} - {} {}'\
-        .format(p_name, t_name, min, sec, l_team_name,
-                local_score, v_team_name, visiting_score)
 
-    channel = '#test-slack-api'
-    slack_bot.send_message(channel, msg)
+def on_press(key):
+    if key == keyboard.Key.esc:
+        return False  # stop listener
+    try:
+        k = key.char  # single-char keys
+    except:
+        k = key.name  # other keys
+
+    print('Key pressed: ' + k)
+    txt_team1 = 'Go Barza !!!'
+    txt_team2 = 'Go Real Madrid !!!'
+    if k == '1':
+        unity.send_msg_team1(txt_team1)
+    elif k == '2':
+        unity.send_msg_team2(txt_team2)
 
 
 def main():
-    listen_unity()
+    t_unity = threading.Thread(target=listen_unity_msgs, daemon=True)
+    t_unity.start()
+
+    t_youtube = threading.Thread(target=listen_youtube_uploader, daemon=True)
+    t_youtube.start()
+
+    key_listener = keyboard.Listener(on_press=on_press)
+    key_listener.start()
+
+    while True:
+        pass
+
+    print ('Program finished...')
+
 
 
 if __name__ == '__main__':

@@ -10,10 +10,12 @@ using UnityEngine.PS4;
 
 public class UDPReceive : MonoBehaviour
 {
+    [Tooltip("In case of PC is connected to multiple networks")]
     public string m_localIP;
     public int port;
     public bool HUDenabled;
     public bool leftHUD;
+    public GameObject team;
 
     [HideInInspector]
     public string udpString;
@@ -27,7 +29,8 @@ public class UDPReceive : MonoBehaviour
     private UdpClient receivingUdpClient;
     private string udpStringAsync;    
     private bool UDPreceivingStarted = false;
-    private string localIP;    
+    private string localIP;
+    private string teamName;
 
 
     void Awake()
@@ -41,9 +44,15 @@ public class UDPReceive : MonoBehaviour
         remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);        
         receivingUdpClient.BeginReceive(new AsyncCallback(ReceiveUdpData), null);
     }
-    
 
-    
+
+    private void Start()
+    {
+        teamName = team.name;
+    }
+
+
+
     private void Update()
     {
         /*
@@ -91,14 +100,17 @@ public class UDPReceive : MonoBehaviour
 
     void displayHUD()
     {
-        int c = 0;
+        int c = 10;
         if (!leftHUD)
         {
-            c = 500;
-        }           
+            if (Screen.width > 800)
+                c = Screen.width - 410;
+            else
+                c = 500;
+        }
 
-        GUI.BeginGroup(new Rect(c+10, 10, 400, 300));
-            GUI.Box(new Rect(0, 0, 400, 300), "UDP Data");
+        GUI.BeginGroup(new Rect(c, 10, 400, 300));
+            GUI.Box(new Rect(0, 0, 400, 300), "Spectators comments for: " + teamName);
             if (UDPreceivingStarted)
             {
                 GUI.Label(new Rect(20, 25, 400, 25), "UDP string:  " + udpString);            

@@ -20,6 +20,9 @@ public class EventNotifier : MonoBehaviour
         visitingTeamName = inGame.team2.name;
 
         SubscribeToEvents();
+
+        //Output the current screen window width in the console
+        //Debug.Log("Screen Width : " + Screen.width);
     }
 
 
