@@ -24,6 +24,7 @@ public class TestSpectatingAPI : MonoBehaviour
     }
 
 
+    /*
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -53,6 +54,7 @@ public class TestSpectatingAPI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
             TestSwapCamera();
     }
+    */
 
 
     private void SubscribeToAPIEvents()
@@ -63,6 +65,7 @@ public class TestSpectatingAPI : MonoBehaviour
         SpectatingAPISoccer.matchFinishedEvent += TestOnMatchFinished;
         SpectatingAPISoccer.throwInEvent += TestOnThrowIn;
         SpectatingAPISoccer.cornerEvent += TestOnCorner;
+        SpectatingAPISoccer.goalKickEvent += TestGoalKick;
         SpectatingAPISoccer.passEvent += TestOnPass;
         SpectatingAPISoccer.shootEvent += TestOnShoot;
     }
@@ -76,6 +79,7 @@ public class TestSpectatingAPI : MonoBehaviour
         SpectatingAPISoccer.matchFinishedEvent -= TestOnMatchFinished;
         SpectatingAPISoccer.throwInEvent -= TestOnThrowIn;
         SpectatingAPISoccer.cornerEvent -= TestOnCorner;
+        SpectatingAPISoccer.goalKickEvent -= TestGoalKick;
         SpectatingAPISoccer.passEvent -= TestOnPass;
         SpectatingAPISoccer.shootEvent -= TestOnShoot;
     }
@@ -156,8 +160,8 @@ public class TestSpectatingAPI : MonoBehaviour
 
     private void TestOnCorner()
     {
-        Debug.Log("Event: Corner kick or goal kick... 555");
-    }
+        Debug.Log("Event: corner kick... 555");
+    }    
 
 
     private void TestOnPass()
@@ -169,6 +173,12 @@ public class TestSpectatingAPI : MonoBehaviour
     private void TestOnShoot()
     {
         Debug.Log("Event: a shoot was made... 777");
+    }
+
+
+    private void TestGoalKick()
+    {
+        Debug.Log("Event: goal kick... 888");
     }
     #endregion
 

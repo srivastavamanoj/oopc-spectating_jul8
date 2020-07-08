@@ -8,6 +8,7 @@ public class EventNotifier : MonoBehaviour
     private UDPSend udpSend;
     private string localTeamName;
     private string visitingTeamName;
+    private InGame inGame;
 
 
     private void Start()
@@ -15,26 +16,27 @@ public class EventNotifier : MonoBehaviour
         specApi = GameObject.Find("SpectatingAPI").GetComponent<SpectatingAPISoccer>();
         udpSend = GetComponent<UDPSend>();
 
-        InGame inGame = GameObject.Find("GameManager").GetComponent<InGame>();
+        inGame = GameObject.Find("GameManager").GetComponent<InGame>();
         localTeamName = inGame.team1.name;
         visitingTeamName = inGame.team2.name;
 
-        SubscribeToEvents();
-
-        //Output the current screen window width in the console
-        //Debug.Log("Screen Width : " + Screen.width);
+        SubscribeToEvents();        
     }
 
 
     private void SubscribeToEvents()
     {
         SpectatingAPISoccer.goalEvent += OnGoal;
+        SpectatingAPISoccer.cornerEvent += OnCorner;
+        SpectatingAPISoccer.goalKickEvent += OnGoalKick;
     }
 
 
     private void UnsubscribeToEvents()
     {
-        SpectatingAPISoccer.goalEvent += OnGoal;
+        SpectatingAPISoccer.goalEvent -= OnGoal;
+        SpectatingAPISoccer.cornerEvent -= OnCorner;
+        SpectatingAPISoccer.goalKickEvent -= OnGoalKick;
     }
 
 
@@ -49,6 +51,7 @@ public class EventNotifier : MonoBehaviour
         GameObject aPlayer = specApi.GetLastPlayerWithBall();
         SpectatingAPISoccer.PlayerInfo playerInfo = specApi.GetPlayerInfo(aPlayer);
         
+        // TO DO
         //If last player is goalkeeper then change for the prevToLastPlayerWithBall
 
         SpectatingAPISoccer.MatchClock matchClock = specApi.GetMatchClock();        
@@ -66,35 +69,54 @@ public class EventNotifier : MonoBehaviour
 
         string json = JsonUtility.ToJson(msgGoal);
         udpSend.SendString(json);
-    }
+    }    
 
 
-    private void OnShootDeflected()
-    {
-        
-    }
+    private void OnCorner()
+    {        
+        GameObject aPlayer = specApi.GetLastPlayerWithBall();
+        string teamAwardedCorner = aPlayer.transform.GetComponent<Team>().otherTeam.transform.name;
 
+        MsgCorner msgCorner = new MsgCorner();
+        msgCorner.eventType = "corner";
+        msgCorner.playerConcededCorner = aPlayer.name;
+        msgCorner.teamAwardedCorner = teamAwardedCorner;
+        msgCorner.playerToThrowIn = inGame.candidateToThrowIn.transform.name;
 
-    private void OnCornerKick()
-    {
-
+        string json = JsonUtility.ToJson(msgCorner);
+        udpSend.SendString(json);
     }
 
 
     private void OnGoalKick()
     {
+        GameObject aPlayer = specApi.GetLastPlayerWithBall();
+        string teamAwardedGk = aPlayer.transform.parent.GetComponent<Team>().otherTeam.transform.name;
+
+        MsgGoalKick msgGoalKick = new MsgGoalKick();
+        msgGoalKick.eventType = "goal_kick";
+        msgGoalKick.playerConcededGk = aPlayer.name;
+        msgGoalKick.teamAwardedGk = teamAwardedGk;
+        msgGoalKick.goalKeeperToAct = inGame.goalKeeperToAct.transform.name;
+
+        string json = JsonUtility.ToJson(msgGoalKick);
+        udpSend.SendString(json);
+    }
+
+
+    #region TO DO
+    private void OnShootDeflected()
+    {
 
     }
 
 
-
-    // TO DO
+    
     private void OnOwnGoal()
     {        
     }
 
-
-    // TO DO
+        
     private bool IsOwnGoal()
     {
         bool isOwnGoal = false;
@@ -102,6 +124,6 @@ public class EventNotifier : MonoBehaviour
 
         return isOwnGoal;
     }
-
+    #endregion
 
 }

@@ -19,11 +19,11 @@ public class Corner : MonoBehaviour
 
     #endregion Public Fields
 
-    #region Delegates and Events
-    public delegate void OnCornerDelegate();
-    public static event OnCornerDelegate cornerEvent;
+    //#region Delegates and Events
+    //public delegate void OnCornerDelegate();
+    //public static event OnCornerDelegate cornerEvent;
 
-    #endregion
+    //#endregion
 
     #region Private Methods
 
@@ -67,7 +67,7 @@ public class Corner : MonoBehaviour
 
                 // Notify subscribers of corner event
                 // Need to start a coroutine and wait a bit to see if the InGameState is Corner
-                cornerEvent?.Invoke();
+                //cornerEvent?.Invoke();
             }
         }
     }

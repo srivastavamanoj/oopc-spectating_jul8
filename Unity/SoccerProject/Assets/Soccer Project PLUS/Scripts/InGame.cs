@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class InGame : MonoBehaviour
 {
     #region Public Fields
-
     [Header("Ball")]
     public Ball ball;
 
@@ -45,11 +44,9 @@ public class InGame : MonoBehaviour
     public Team team1;
     public Team team2;
     public float timeToChangeState = 0.0f;
-
     #endregion Public Fields
 
     #region Private Fields
-
     private static readonly int CornerKick = Animator.StringToHash("Corner_Kick");
     private static readonly int Idle = Animator.StringToHash("idle");
     private static readonly int ThowOutFoot = Animator.StringToHash("thow_out_foot");
@@ -57,11 +54,9 @@ public class InGame : MonoBehaviour
     private float timeToKickOff = Globals.perdiodToKickOff;
     private float timeToThrowCPU = Globals.perdiodToThrowCPU;
     private Player whoLastTouched;
-
     #endregion Private Fields
 
     #region Public Enums
-
     public enum InGameState
     {
         PLAYING,
@@ -76,31 +71,31 @@ public class InGame : MonoBehaviour
         CORNER_DONE,
         GOAL_KICK,
     };
-
     #endregion Public Enums
 
     #region Public Properties
-
     public Player candidateToThrowIn { get; set; }
     public int firstHalf { get; set; } = 0;
     public GoalKeeper goalKeeperToAct { get; set; }
     public bool scoredbylocal { get; set; } = false;
     public bool scoredbyvisiting { get; set; } = true;
-
     #endregion Public Properties
 
     #region Delegates and events    
     public delegate void OnFirstHalfStartedDelegate();
     public delegate void OnSecondHalfStartedDelegate();
     public delegate void OnMatchFinishedDelegate();
+    public delegate void OnCornerDelegate();
+    public delegate void OnGoalKickDelegate();
     public static event OnFirstHalfStartedDelegate firstHalfStartedEvent;
     public static event OnSecondHalfStartedDelegate secondHalfStartedEvent;
     public static event OnMatchFinishedDelegate matchFinishedEvent;
+    public static event OnCornerDelegate cornerEvent;
+    public static event OnGoalKickDelegate goalKickEvent;
     #endregion
 
 
     #region Private Methods
-
     private void PutPlayersInCornerArea(List<Player> arrayPlayers, Player.TypePlayer type)
     {
         foreach (Player player in arrayPlayers)
@@ -286,14 +281,17 @@ public class InGame : MonoBehaviour
 
                 case InGameState.CORNER:
 
-                    whoLastTouched = lastTouched;                    
-
+                    whoLastTouched = lastTouched;
                     if (!cornerTrigger.CompareTag(whoLastTouched.tag))
                     {
                         // it is not corner-kick, it is goal-kick
                         state = InGameState.GOAL_KICK;
+                        
+                        // Notify subscribers there is a goal kick                        
+                        goalKickEvent?.Invoke();
+
                         break;
-                    }
+                    }                    
 
                     foreach (Player go in team1.players)
                     {
@@ -310,6 +308,9 @@ public class InGame : MonoBehaviour
                     PutPlayersInCornerArea(whoLastTouched.team.otherTeam.players, Player.TypePlayer.ATTACKER);
                     PutPlayersInCornerArea(whoLastTouched.team.otherTeam.players, Player.TypePlayer.MIDDLER);
                     candidateToThrowIn = SearchPlayerNearBall(whoLastTouched.team.otherTeam.players);
+
+                    // Notify subscribers there is a corner                        
+                    cornerEvent?.Invoke();
 
                     candidateToThrowIn.transform.position = new Vector3(cornerSource.position.x, candidateToThrowIn.transform.position.y, cornerSource.position.z);
                     candidateToThrowIn.transform.rotation = cornerSource.rotation;
@@ -474,6 +475,5 @@ public class InGame : MonoBehaviour
             }
         }
     }
-
     #endregion Private Methods
 }

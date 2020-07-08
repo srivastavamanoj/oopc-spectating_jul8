@@ -69,6 +69,7 @@ public class SpectatingAPISoccer : MonoBehaviour
     public delegate void OnMatchFinishedDelegate();
     public delegate void OnThrowInDelegate();
     public delegate void OnCornerDelegate();
+    public delegate void OnGoalKickDelegate();
 
     public static event OnGoalDelegate goalEvent;
     public static event OnPassDelegate passEvent;
@@ -78,6 +79,7 @@ public class SpectatingAPISoccer : MonoBehaviour
     public static event OnMatchFinishedDelegate matchFinishedEvent;
     public static event OnThrowInDelegate throwInEvent;
     public static event OnCornerDelegate cornerEvent;
+    public static event OnGoalKickDelegate goalKickEvent;
 
     private InGame inGame;
     private ScorerTimeHUD scorerTimeHUD;
@@ -129,7 +131,9 @@ public class SpectatingAPISoccer : MonoBehaviour
         InGame.secondHalfStartedEvent += OnSecondHalfStarted;
         InGame.matchFinishedEvent += OnMatchFinished;
         Side.throwInEvent += OnThrowIn;
-        Corner.cornerEvent += OnCorner;
+        //Corner.cornerEvent += OnCorner;
+        InGame.cornerEvent += OnCorner;
+        InGame.goalKickEvent += OnGoalKick;
         Player.passEvent += OnPass;
         Player.shootEvent += OnShoot;
     }
@@ -142,7 +146,9 @@ public class SpectatingAPISoccer : MonoBehaviour
         InGame.secondHalfStartedEvent -= OnSecondHalfStarted;
         InGame.matchFinishedEvent -= OnMatchFinished;
         Side.throwInEvent -= OnThrowIn;
-        Corner.cornerEvent -= OnCorner;
+        //Corner.cornerEvent -= OnCorner;
+        InGame.cornerEvent -= OnCorner;
+        InGame.goalKickEvent -= OnGoalKick;
         Player.passEvent -= OnPass;
         Player.shootEvent -= OnShoot;
     }
@@ -379,6 +385,12 @@ public class SpectatingAPISoccer : MonoBehaviour
     private void OnCorner()
     {
         cornerEvent?.Invoke();
+    }
+
+
+    private void OnGoalKick()
+    {
+        goalKickEvent?.Invoke();
     }
 
 

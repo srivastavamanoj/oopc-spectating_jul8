@@ -128,6 +128,12 @@ public class UDPSend : MonoBehaviour
     }
 
 
+    private void OnDisable()
+    {
+        closeUDP();
+    }
+
+
     private string GetLocalIP()
     {
         IPHostEntry host;

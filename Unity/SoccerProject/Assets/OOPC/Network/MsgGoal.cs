@@ -22,5 +22,26 @@ public class MsgGoal
 [Serializable]
 public class MsgShoot
 {
+    public string eventType;    
+    public string playerName;
+    public string teamName;    
+}
 
+
+[Serializable]
+public class MsgCorner
+{
+    public string eventType;    
+    public string playerConcededCorner;
+    public string teamAwardedCorner;
+    public string playerToThrowIn;
+}
+
+
+public class MsgGoalKick
+{
+    public string eventType;
+    public string playerConcededGk;
+    public string teamAwardedGk;
+    public string goalKeeperToAct;
 }

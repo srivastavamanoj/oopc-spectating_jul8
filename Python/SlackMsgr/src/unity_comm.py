@@ -33,6 +33,12 @@ def process_msg(msg_dic):
     elif msg_dic['eventType'] == 'file_ready':
         on_file_ready(msg_dic)
 
+    elif msg_dic['eventType'] == 'corner':
+        on_corner(msg_dic)
+
+    elif msg_dic['eventType'] == 'goal_kick':
+        on_goal_kick(msg_dic)
+
 
 def on_goal(msg_dic):
     min = msg_dic['minute']
@@ -55,6 +61,33 @@ def on_goal(msg_dic):
 
 def on_file_ready(msg_dic):
     pass
+
+
+def on_corner(msg_dic):
+    p_conceded = msg_dic['playerConcededCorner']
+    t_awarded_corner = msg_dic['teamAwardedCorner']
+    p_throw_in = msg_dic['playerToThrowIn']
+
+    msg = 'A corner kick was conceded by {} who sent the ball out ' \
+          'of play. {} has the opportunity now, and {} will take ' \
+          'the corner kick. '\
+        .format(p_conceded, t_awarded_corner, p_throw_in, )
+
+    channel = '#test-slack-api'
+    slack_bot.send_message(channel, msg)
+
+
+def on_goal_kick(msg_dic):
+    p_conceded_gk = msg_dic['playerConcededGk']
+    t_awarded_gk = msg_dic['teamAwardedGk']
+    gk_throw_in = msg_dic['goalKeeperToAct']
+
+    msg = 'A goal kick was given to {}. {} sent the ball out ' \
+          'of play. {} is getting ready to take the goal kick'.\
+        format(t_awarded_gk, p_conceded_gk, gk_throw_in)
+
+    channel = '#test-slack-api'
+    slack_bot.send_message(channel, msg)
 
 
 def send_unity(ip, port, txt):

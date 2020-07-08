@@ -140,7 +140,13 @@ public class UDPReceive : MonoBehaviour
     {
         closeUDP();
     }
-    
+
+
+    private void OnDisable()
+    {
+        closeUDP();
+    }
+
 
     private string GetLocalIP()
     {
